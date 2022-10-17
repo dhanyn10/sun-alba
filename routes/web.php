@@ -8,10 +8,15 @@
 
 $router->get('/users', [ 'uses' => 'UserController@showAll']);
 
-$router->get('/categories', [ 'uses' => 'CategoryController@showAll']);
-$router->post('/categories', [ 'uses' => 'CategoryController@create']);
-$router->put('/categories/{id}', 'CategoryController@update');
-$router->delete('/categories/{id}', 'CategoryController@delete');
+$router->group([
+    'middleware' => 'auth',
+    'prefix' => 'categories'
+], function () use ($router) {
+    $router->get('','CategoryController@showAll');
+    $router->post('', 'CategoryController@create');
+    $router->put('{id}', 'CategoryController@update');
+    $router->delete('{id}', 'CategoryController@delete');
+});
 
 $router->post('/register', [ 'uses' => 'UserController@register']);
 $router->post('/login', [ 'uses' => 'UserController@login']);
