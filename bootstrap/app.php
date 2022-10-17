@@ -86,9 +86,9 @@ $app->middleware([
     \Illuminate\Session\Middleware\StartSession::class,
 ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\UserAuth::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
