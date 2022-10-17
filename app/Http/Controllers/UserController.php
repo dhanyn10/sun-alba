@@ -19,16 +19,66 @@ class UserController extends Controller
         $ms = null;
         $scode = 0;
 
-        $name       = $request->name;
+        $email      = $request->email;
         $password   = $request->password;
 
-        $checkUser = User::where('name', $name)->get();
+        $checkUser = User::where('email', $email)->get();
         if(count($checkUser) > 0)
         {
-            $checkPassword = $checkUser->password;
+            $checkPassword = $checkUser->pluck('password')->first();
             if(Hash::check($password, $checkPassword))
             {
-                $ms = "logged in";
+                if($request->session()->has('email'))
+                {
+                    $ms = "already logged in";
+                    $scode = 200;
+                }
+                else
+                {
+                    $request->session()->put('email', $email);
+                    $ms = "logged in";
+                    $scode = 200;
+                }
+            }
+            else
+            {
+                $ms = "password not match";
+                $scode = 405;
+            }
+        }
+        else
+        {
+            $ms = "user not found";
+            $scode = 404;
+        }
+        return response()->json([
+            'message'   => $ms
+        ], $scode);
+    }
+
+    public function logout(Request $request)
+    {
+        $ms = null;
+        $scode = 0;
+
+        $email      = $request->email;
+        $password   = $request->password;
+
+        $checkUser = User::where('email', $email)->get();
+        if(count($checkUser) > 0)
+        {
+            $checkPassword = $checkUser->pluck('password')->first();
+            if(Hash::check($password, $checkPassword))
+            {
+                if($request->session()->has('email'))
+                {
+                    $request->session()->flush();
+                    $ms = "logged out";
+                }
+                else
+                {
+                    $ms = "already logged out";
+                }
                 $scode = 200;
             }
             else
