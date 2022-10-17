@@ -96,4 +96,37 @@ class CategoryController extends Controller
             'message' => $ms
         ], $scode);
     }
+
+    public function delete(Request $request)
+    {
+        $id     = $request->id;
+
+        $ms = null;
+        $scode = 0;
+
+        $check = Category::where('id', $id)->get();
+        if(count($check) > 0)
+        {
+            $update = Category::where('id', $id)->delete();
+            if($update)
+            {
+                $ms = "category deleted";
+                $scode = 200;
+            }
+            else
+            {
+                $ms = "failed deleting category";
+                $scode = 405;
+            }
+        }
+        else
+        {
+            $ms = "cannot find category";
+            $scode = 404;
+        }
+
+        return response()->json([
+            'message' => $ms
+        ], $scode);
+    }
 }
