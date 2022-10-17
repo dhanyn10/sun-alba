@@ -53,4 +53,47 @@ class CategoryController extends Controller
             'message' => $ms
         ], $scode);
     }
+
+    public function update(Request $request)
+    {
+        $id     = $request->id;
+        $name   = $request->name;
+
+        $ms = null;
+        $scode = 0;
+
+        if($name === null || $id === null)
+        {
+            return response()->json([
+                'message' => "wrong input"
+            ], 405);
+        }
+
+        $check = Category::where('id', $id)->get();
+        if(count($check) > 0)
+        {
+            $update = Category::where('id', $id)->update([
+                'name'  => $name
+            ]);
+            if($update)
+            {
+                $ms = "category updated";
+                $scode = 200;
+            }
+            else
+            {
+                $ms = "failed updating category";
+                $scode = 405;
+            }
+        }
+        else
+        {
+            $ms = "cannot find category";
+            $scode = 404;
+        }
+
+        return response()->json([
+            'message' => $ms
+        ], $scode);
+    }
 }
