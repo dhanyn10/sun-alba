@@ -1,0 +1,12 @@
+<?php
+
+/** @var \Laravel\Lumen\Routing\Router $router */
+
+use App\Http\Controllers\UserController;
+
+// $router->get('/', function () use ($router) {
+//     return $router->app->version();
+// });
+
+$router->get('/users', [ 'uses' => 'UserController@getAll']);
+$router->post('/login', [ 'uses' => 'UserController@login']);
