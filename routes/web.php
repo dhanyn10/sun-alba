@@ -9,5 +9,6 @@ use App\Http\Controllers\UserController;
 // });
 
 $router->get('/users', [ 'uses' => 'UserController@getAll']);
+$router->post('/register', [ 'uses' => 'UserController@register']);
 $router->post('/login', [ 'uses' => 'UserController@login']);
 $router->post('/logout', [ 'uses' => 'UserController@logout']);

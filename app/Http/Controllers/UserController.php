@@ -14,6 +14,56 @@ class UserController extends Controller
         return response()->json($data);
     }
 
+    public function register(Request $request)
+    {
+        $name   = $request->name;
+        $email  = $request->email;
+        $password = $request->password;
+
+        $ms = null;
+        $scode = 0;
+
+        if(
+            $name === null ||
+            $email === null ||
+            $password === null
+        )
+        {
+            return response()->json([
+                'message' => "wrong input"
+            ], 405);
+        }
+
+        $checkUser = User::where('email', $email)->get();
+        if(count($checkUser) > 0)
+        {
+            $ms = "user already exist";
+            $scode = 405;
+        }
+        else
+        {
+            $create = User::create([
+                'name'  => $name,
+                'email' => $email,
+                'password'  => Hash::make($password)
+            ]);
+            if($create)
+            {
+                $ms = "data created";
+                $scode = 200;
+            }
+            else
+            {
+                $ms = "failed creating data";
+                $scode = 405;
+            }
+        }
+
+        return response()->json([
+            'message' => $ms
+        ], $scode);
+    }
+
     public function login(Request $request)
     {
         $ms = null;
@@ -21,6 +71,16 @@ class UserController extends Controller
 
         $email      = $request->email;
         $password   = $request->password;
+
+        if(
+            $email === null ||
+            $password === null
+        )
+        {
+            return response()->json([
+                'message' => "wrong input"
+            ], 405);
+        }
 
         $checkUser = User::where('email', $email)->get();
         if(count($checkUser) > 0)
@@ -63,6 +123,16 @@ class UserController extends Controller
 
         $email      = $request->email;
         $password   = $request->password;
+
+        if(
+            $email === null ||
+            $password === null
+        )
+        {
+            return response()->json([
+                'message' => "wrong input"
+            ], 405);
+        }
 
         $checkUser = User::where('email', $email)->get();
         if(count($checkUser) > 0)
