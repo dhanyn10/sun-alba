@@ -23,9 +23,9 @@ $router->group([
     'prefix' => 'tags'
 ], function () use ($router) {
     $router->get('','TagController@showAll');
-    // $router->post('', 'TagController@create');
-    // $router->put('{id}', 'TagController@update');
-    // $router->delete('{id}', 'TagController@delete');
+    $router->post('', 'TagController@create');
+    $router->put('{id}', 'TagController@update');
+    $router->delete('{id}', 'TagController@delete');
 });
 
 $router->post('/register', [ 'uses' => 'UserController@register']);
