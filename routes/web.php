@@ -18,6 +18,16 @@ $router->group([
     $router->delete('{id}', 'CategoryController@delete');
 });
 
+$router->group([
+    'middleware' => 'auth',
+    'prefix' => 'tags'
+], function () use ($router) {
+    $router->get('','TagController@showAll');
+    // $router->post('', 'TagController@create');
+    // $router->put('{id}', 'TagController@update');
+    // $router->delete('{id}', 'TagController@delete');
+});
+
 $router->post('/register', [ 'uses' => 'UserController@register']);
 $router->post('/login', [ 'uses' => 'UserController@login']);
 $router->post('/logout', [ 'uses' => 'UserController@logout']);
