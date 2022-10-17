@@ -8,8 +8,8 @@ use App\Http\Controllers\UserController;
 //     return $router->app->version();
 // });
 
-$router->get('/users', [ 'uses' => 'UserController@getAll']);
-$router->get('/categories', [ 'uses' => 'CategoryController@getAll']);
+$router->get('/users', [ 'uses' => 'UserController@showAll']);
+$router->get('/categories', [ 'uses' => 'CategoryController@showAll']);
 $router->post('/register', [ 'uses' => 'UserController@register']);
 $router->post('/login', [ 'uses' => 'UserController@login']);
 $router->post('/logout', [ 'uses' => 'UserController@logout']);

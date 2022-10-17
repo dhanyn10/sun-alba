@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function getAll()
+    public function showAll()
     {
         $data = User::all()->makeHidden(['password']);
         return response()->json($data);
