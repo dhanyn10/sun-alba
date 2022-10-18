@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -32,6 +33,23 @@ class PostController extends Controller
             return response()->json([
                 'message' => "wrong input"
             ], 405);
+        }
+
+        // string -> array
+        $decode = json_decode($categories);
+
+        //unique array, antisipasi value duplikat
+        $arrayunique = array_unique($decode);
+
+        for($i = 0; $i < count($arrayunique); $i++)
+        {
+            $check = Category::where('id', $arrayunique[$i])->exists();
+            if(!$check)
+            {
+                return response()->json([
+                    'message' => "categories not exists"
+                ], 405);
+            }
         }
 
         $check = Post::where('title', $title)->get();
