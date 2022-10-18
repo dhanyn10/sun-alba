@@ -6,7 +6,7 @@
 //     return $router->app->version();
 // });
 
-$router->get('/users', [ 'uses' => 'UserController@showAll']);
+$router->get('/users', 'UserController@showAll');
 
 $router->group([
     'middleware' => 'auth',
@@ -38,6 +38,6 @@ $router->group([
     $router->delete('{id}', 'PostController@delete');
 });
 
-$router->post('/register', [ 'uses' => 'UserController@register']);
-$router->post('/login', [ 'uses' => 'UserController@login']);
-$router->post('/logout', [ 'uses' => 'UserController@logout']);
+$router->post('/register','UserController@register');
+$router->post('/login', 'UserController@login');
+$router->post('/logout', 'UserController@logout');
