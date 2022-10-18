@@ -34,8 +34,8 @@ $router->group([
 ], function () use ($router) {
     $router->get('','PostController@showAll');
     $router->post('', 'PostController@create');
-    // $router->put('{id}', 'TagController@update');
-    // $router->delete('{id}', 'TagController@delete');
+    $router->put('{id}', 'PostController@update');
+    $router->delete('{id}', 'PostController@delete');
 });
 
 $router->post('/register', [ 'uses' => 'UserController@register']);

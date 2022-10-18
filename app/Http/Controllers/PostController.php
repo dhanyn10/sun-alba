@@ -125,13 +125,13 @@ class PostController extends Controller
         $check = Post::where('id', $id)->get();
         if(count($check) > 0)
         {
-            $create = Post::where('id', $id)->update([
+            $update = Post::where('id', $id)->update([
                 'title'  => $title,
                 'content' => $content,
                 'categories' => $categories,
                 'tags'  => $tags
             ]);
-            if($create)
+            if($update)
             {
                 $ms = "post updated";
                 $scode = 200;
@@ -139,6 +139,39 @@ class PostController extends Controller
             else
             {
                 $ms = "failed updating post";
+                $scode = 405;
+            }
+        }
+        else
+        {
+            $ms = "post not exists";
+            $scode = 405;
+        }
+
+        return response()->json([
+            'message' => $ms
+        ], $scode);
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->id;
+
+        $ms = null;
+        $scode = 0;
+
+        $check = Post::where('id', $id)->get();
+        if(count($check) > 0)
+        {
+            $delete = Post::where('id', $id)->delete();
+            if($delete)
+            {
+                $ms = "post deleted";
+                $scode = 200;
+            }
+            else
+            {
+                $ms = "failed deleting post";
                 $scode = 405;
             }
         }
