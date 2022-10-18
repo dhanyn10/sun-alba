@@ -9,10 +9,17 @@
 $router->get('/', function () {
     return redirect()->route('blogview');
 });
+
 $router->get('blog', [
     'uses'  =>'PostController@blogViews',
     'as'    => 'blogview'
 ]);
+
+$router->get('blog/{id}', [
+    'uses'  =>'PostController@blogPosts',
+    'as'    => 'blogposts'
+]);
+
 $router->get('/users', 'UserController@showAll');
 
 $router->group([

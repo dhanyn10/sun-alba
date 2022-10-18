@@ -192,4 +192,10 @@ class PostController extends Controller
         return view('home', ['post' => $post]);
     }
 
+    public function blogPosts(Request $request)
+    {
+        $id = $request->id;
+        $postitem = Post::where('id', $id)->get();
+        return view('post', ['postItem' => $postitem]);
+    }
 }
