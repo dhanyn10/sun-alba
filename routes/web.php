@@ -6,6 +6,7 @@
 //     return $router->app->version();
 // });
 
+$router->get('/', 'PostController@blogViews');
 $router->get('/users', 'UserController@showAll');
 
 $router->group([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Post;
@@ -184,6 +185,12 @@ class PostController extends Controller
         return response()->json([
             'message' => $ms
         ], $scode);
+    }
+
+    public function blogViews()
+    {
+        $post = Post::all();
+        return View::make('home', ['post' => $post]);
     }
 
 }
