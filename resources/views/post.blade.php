@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    @foreach ($postItem as $item)
+    @foreach ($postitem as $item)
     <div class="card">
         <div class="card-header">
             {{$item->title}}
@@ -9,6 +9,11 @@
             <div class="card-text">
                 {{$item->content}}
             </div>
+            <p>
+                @foreach ($categories as $item)
+                    <span class="badge text-bg-primary">{{$item}}</span>
+                @endforeach
+            </p>
         </div>
     </div>
     @endforeach

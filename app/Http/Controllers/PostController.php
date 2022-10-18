@@ -196,6 +196,21 @@ class PostController extends Controller
     {
         $id = $request->id;
         $postitem = Post::where('id', $id)->get();
-        return view('post', ['postItem' => $postitem]);
+
+        // category
+        $categories = $postitem->pluck('categories')->first();
+        // string -> array
+        $categories = array_map('intval', json_decode($categories));
+        $categoriesData = [];
+        for($i = 0; $i < count($categories); $i++)
+        {
+            $getCategory = Category::where('id', $categories[$i])->get();
+            $cname = $getCategory->pluck('name')->first();
+            array_push($categoriesData, $cname);
+        }
+        return view('post', [
+            'postitem'  => $postitem,
+            'categories' => $categoriesData
+        ]);
     }
 }
