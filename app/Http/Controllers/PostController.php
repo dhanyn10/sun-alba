@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -197,20 +198,39 @@ class PostController extends Controller
         $id = $request->id;
         $postitem = Post::where('id', $id)->get();
 
-        // category
+        // categories
         $categories = $postitem->pluck('categories')->first();
-        // string -> array
+        // categories: string -> array
         $categories = json_decode($categories);
+
+        // tags
+        $tags = $postitem->pluck('tags')->first();
+        // tags: string -> array
+        $tags = json_decode($tags);
+
         $categoriesData = [];
+        $tagsData = [];
+
+        // get data categories
         for($i = 0; $i < count($categories); $i++)
         {
             $getCategory = Category::where('id', $categories[$i])->get();
             $cname = $getCategory->pluck('name')->first();
             array_push($categoriesData, $cname);
         }
+
+        // get data tags
+        for($i = 0; $i < count($tags); $i++)
+        {
+            $getTag = Tag::where('id', $tags[$i])->get();
+            $tname = $getTag->pluck('name')->first();
+            array_push($tagsData, $tname);
+        }
+
         return view('post', [
             'postitem'  => $postitem,
-            'categories' => $categoriesData
+            'categories' => $categoriesData,
+            'tags' => $tagsData
         ]);
     }
 }

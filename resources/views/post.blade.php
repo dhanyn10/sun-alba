@@ -14,6 +14,11 @@
                     <span class="badge text-bg-primary">{{$item}}</span>
                 @endforeach
             </p>
+            <p>Tags: 
+                @foreach ($tags as $item)
+                    <span class="badge text-bg-danger">{{$item}}</span>
+                @endforeach
+            </p>
         </div>
     </div>
     @endforeach
