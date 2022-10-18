@@ -9,7 +9,7 @@
             <div class="card-text">
                 {{$item->content}}
             </div>
-            <p>
+            <p>Categories: 
                 @foreach ($categories as $item)
                     <span class="badge text-bg-primary">{{$item}}</span>
                 @endforeach

@@ -200,7 +200,7 @@ class PostController extends Controller
         // category
         $categories = $postitem->pluck('categories')->first();
         // string -> array
-        $categories = array_map('intval', json_decode($categories));
+        $categories = json_decode($categories);
         $categoriesData = [];
         for($i = 0; $i < count($categories); $i++)
         {
