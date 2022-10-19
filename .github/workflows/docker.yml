@@ -11,9 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: replace .env file
-      run: |
-        php -r "copy('.env.docker', '.env');"
     - uses: actions/checkout@v2
     - name: Run docker-compose
       run: docker-compose up -d
@@ -21,6 +18,8 @@ jobs:
       uses: juliangruber/sleep-action@v1
       with:
         time: 10s
+    - name: replace .env file
+      run: docker exec php -r "copy('.env.docker', '.env');"
     - name: composer autoload
       run: docker exec web composer dump-autoload
     - name: database migration
