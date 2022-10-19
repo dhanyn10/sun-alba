@@ -27,4 +27,4 @@ jobs:
     - name: database seed
       run: docker exec web php artisan db:seed
     - name: unit testing
-      run: docker exec web /vendor/bin/phpunit
+      run: docker exec web ./vendor/bin/phpunit
