@@ -11,6 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: replace .env file
+      run: |
+        php -r "copy('.env.docker', '.env');"
     - uses: actions/checkout@v2
     - name: Run docker-compose
       run: docker-compose up -d
