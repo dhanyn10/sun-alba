@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.1.5-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -20,6 +20,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /src
 WORKDIR /src
 
+ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN composer update
 
 #start docker service

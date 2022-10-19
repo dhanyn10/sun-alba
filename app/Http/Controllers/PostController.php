@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Tag;
@@ -190,7 +191,8 @@ class PostController extends Controller
     public function blogViews()
     {
         $post = Post::all();
-        return view('home', ['post' => $post]);
+        return View::make('home')
+            ->with('post', $post);
     }
 
     public function blogPosts(Request $request)
@@ -227,7 +229,7 @@ class PostController extends Controller
             array_push($tagsData, $tname);
         }
 
-        return view('post', [
+        return View::make('post', [
             'postitem'  => $postitem,
             'categories' => $categoriesData,
             'tags' => $tagsData
