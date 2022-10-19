@@ -14,6 +14,7 @@ jobs:
     - name: replace .env file
       run: |
         php -r "copy('.env.docker', '.env');"
+        composer dump-autoload
     - uses: actions/checkout@v2
     - name: Run docker-compose
       run: docker-compose up -d
