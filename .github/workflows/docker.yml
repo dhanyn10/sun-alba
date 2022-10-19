@@ -1,0 +1,30 @@
+name: Docker
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run docker-compose
+      run: docker-compose up -d
+    - name: Sleep for 10s
+      uses: juliangruber/sleep-action@v1
+      with:
+        time: 10s
+    - name: replace .env file
+      run: docker exec web cp -f .env.docker .env
+    - name: composer autoload
+      run: docker exec web composer dump-autoload
+    - name: database migration
+      run: docker exec web php artisan migrate
+    - name: database seed
+      run: docker exec web php artisan db:seed
+    - name: unit testing
+      run: docker exec web ./vendor/bin/phpunit
