@@ -52,6 +52,23 @@ $router->group([
     $router->delete('{id}', 'PostController@delete');
 });
 
+$router->group([
+    'middleware' => 'auth',
+    'prefix' => 'shipping'
+], function () use ($router) {
+
+    $router->get('/', function () {
+        return redirect()->route('province');
+    });
+    $router->get('province', [
+        'uses' => 'ShippingController@dataProvinsi',
+        'as' => 'province'
+    ]);
+
+    $router->get('city/{id}', 'ShippingController@dataKota');
+    $router->post('cost', 'ShippingController@cost');
+});
+
 $router->post('/register','UserController@register');
 $router->post('/login', 'UserController@login');
 $router->post('/logout', 'UserController@logout');

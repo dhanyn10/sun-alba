@@ -19,7 +19,10 @@ jobs:
       with:
         time: 10s
     - name: replace .env file
-      run: docker exec web cp -f .env.docker .env
+      run: |
+        docker exec web cp -f .env.docker .env
+        docker exec web echo RAJA_ONGKIR=${{ secrets.RAJA_ONGKIR }} >> .env
+        docker exec web cat .env
     - name: composer autoload
       run: docker exec web composer dump-autoload
     - name: database migration
