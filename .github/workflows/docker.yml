@@ -19,7 +19,7 @@ jobs:
       with:
         time: 10s
     - name: replace .env file
-      run: docker exec php -r "copy('.env.docker', '.env');"
+      run: docker exec web cp -f .env.docker .env
     - name: composer autoload
       run: docker exec web composer dump-autoload
     - name: database migration
