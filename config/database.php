@@ -22,6 +22,7 @@ return [
             ]) : [],
         ],
     ],
+    'migrations' => 'migrations',
     'redis' => [
  
         'client' => env('REDIS_CLIENT'),
