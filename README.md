@@ -174,11 +174,11 @@ Sementara itu, untuk password seluruh data dummy adalah `password`.
     ```
 - **View Blog Post** untuk melihat posting dengan blog view. Kunjungi `http://localhost:8000` pada browser untuk melihatnya.
 ### Shipping
-- **Login** diperlukan sebelum bisa mengakses API Shipping. Silakan gunakan data dummy users yang sudah digenerate sebelumnya maupun yang sudah dibuat sendiri. Data dummy user bisa digunakan untuk login dengan menggunakan akun email manapun yang terdaftar di sistem. **Mulai dari sini, Akan menggunakan API RAJA ONGKIR**. Jadi, pastikan sudah menjalankan instruksi mengenai RAJA_ONGKIR
+- **Login** diperlukan sebelum bisa mengakses API Shipping. Silakan gunakan data dummy users yang sudah digenerate sebelumnya maupun yang sudah dibuat sendiri. Data dummy user bisa digunakan untuk login dengan menggunakan akun email manapun yang terdaftar di sistem. **Mulai dari sini, Akan menggunakan API RAJA ONGKIR**. Jadi, pastikan sudah menjalankan instruksi mengenai RAJA_ONGKIR.  
 Sementara itu, untuk password seluruh data dummy adalah `password`.
 - **Get Province** untuk menayangkan seluruh data provinsi . Kunjungi alamat `localhost:8000/shipping/province` dengan method `GET`
 - **Get City** untuk menayangkan seluruh data Kota berdasarkan provinsi dengan **id=1** . Kunjungi alamat `localhost:8000/shipping/city/1` dengan method `GET`
-- **Get Costs** untuk mendapatkan data shipping cost. Contohnya ingin memperoleh shipping cost dengan pengiriman dari `city_id: 17` ke `city_id:32` dengan nilai berat `10`, maka kunjungi alamat `localhost:8000/shipping/costs` dengan method `GET`, pilih `Body > raw > JSON` lalu isi dengan json di bawah ini:
+- **Get Costs** untuk mendapatkan data shipping cost. Contohnya ingin memperoleh shipping cost dengan pengiriman dari `city_id: 17` ke `city_id:32` dengan nilai berat `10`, maka kunjungi alamat `localhost:8000/shipping/costs` dengan method `POST`, pilih `Body > raw > JSON` lalu isi dengan json di bawah ini:
 ```json
 {
     "origin": 17,
