@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,12 @@ class UserController extends Controller
 {
     public function showAll()
     {
-        $data = User::all()->makeHidden(['password']);
+        $data = json_decode(Redis::get('users'));
+        if($data == null)
+        {
+            $data = User::all()->makeHidden(['password']);
+            Redis::set('users', json_encode($data));
+        }
         return response()->json($data);
     }
 

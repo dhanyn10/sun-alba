@@ -19,6 +19,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: sun_alba
+
+  redisdb:
+    container_name: redisdb
+    image: redis:7.0
+    ports:
+      - 6379:6379
   
   adminer:
     container_name: adminer
