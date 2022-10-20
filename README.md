@@ -5,8 +5,9 @@ Berikut ini aplikasi dan layanan yang perlu dimiliki sebelum menjalankan
 aplikasi utama:
 1. docker desktop
 2. RajaOngkir API key, [daftar dulu](https://rajaongkir.com/akun/daftar) untuk mendapatkan API key
-3. simpan API key yang didapatkan didalam file `.env` pada variable `RAJA_ONGKIR`
-4. jalankan composer autoload agar nilai env RAJA_ONGKIR terbaca,  
+3. Salin isi file `.env.docker` ke dalam file `.env`
+4. simpan API key yang didapatkan didalam file `.env` pada variable `RAJA_ONGKIR`
+5. jalankan composer autoload agar nilai env RAJA_ONGKIR terbaca,  
 gunakan command `composer dump-autoload`
 
 ## Cara Instalasi dengan Docker
