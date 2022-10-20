@@ -1,4 +1,4 @@
-# Sun Alba
+# Sun Alba [![Docker](https://github.com/dhanyn10/sun-alba/actions/workflows/docker.yml/badge.svg)](https://github.com/dhanyn10/sun-alba/actions/workflows/docker.yml)
 
 ## Kebutuhan Sebelum Instalasi
 Berikut ini aplikasi dan layanan yang perlu dimiliki sebelum menjalankan 
