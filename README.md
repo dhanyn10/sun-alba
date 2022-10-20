@@ -14,7 +14,7 @@ gunakan command `composer dump-autoload`
 - gunakan command `docker-compose up -d` untuk proses install aplikasi dalam docker
 - tunggu 10 detik atau lebih setelah proses install selesai, lalu gunakan command di bawah ini untuk menjalankan database migration
     ```sh
-    docker exec  web php artisan migrate
+    docker exec web php artisan migrate
     ```
 - setelah itu, gunakan command di bawah ini untuk menjalankan database seeding dengan data dummy
     ```sh
