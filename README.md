@@ -10,7 +10,7 @@ aplikasi utama:
 gunakan command `composer dump-autoload`
 
 ## Cara Instalasi dengan Docker
-- pastikan docker desktop sudah running
+- pastikan docker desktop terinstall di sistem dan sudah running
 - gunakan command `docker-compose up -d` untuk proses install aplikasi dalam docker
 - tunggu 10 detik atau lebih setelah proses install selesai, lalu gunakan command di bawah ini untuk menjalankan database migration
     ```sh
@@ -131,3 +131,58 @@ Sementara itu, untuk password seluruh data dummy adalah `password`.
         "message": "tag deleted"
     }
     ```
+### Posting
+- **Login** diperlukan sebelum bisa mengakses data Blog Posting. Silakan gunakan data dummy users yang sudah digenerate sebelumnya maupun yang sudah dibuat sendiri. Data dummy user bisa digunakan untuk login dengan menggunakan akun email manapun yang terdaftar di sistem. 
+Sementara itu, untuk password seluruh data dummy adalah `password`.
+- **Get Posting** untuk menayangkan seluruh data posting . Kunjungi alamat `localhost:8000/posts` dengan method `GET`
+- **Post Posting** untuk menambah data posting. Kunjungi alamat `localhost:8000/posts` dengan method `POST`. Pilih `Body > raw > JSON` dan isi data yang dibutuhkan seperti contoh di bawah ini:
+    ```json
+    {
+        "title": "Indonesia Merdeka",
+        "content": "proklamasi 17 agustus 1945",
+        "categories": "[8,2,1,4]",
+        "tags": "[4,5]"
+    }
+    ```
+    Pastikan sebelumnya bahwa id categories dengan nilai 8, 2, 1, dan 4 telah ada di dalam database, dan id tags dengan nilai 4 dan 5 juga terdaftar di database agar bisa menambahkan posting baru.  
+    jika penambahan posting berhasil, maka akan mendapatkan response seperti di bawah ini:
+    ```json
+    {
+        "message": "post created"
+    }
+    ```
+- **Put Posting** untuk mengubah/update data posting berdasarkan id-nya. Kunjungi alamat `localhost:8000/posts/6` untuk mengupdate posting dengan id `6` dengan method `PUT`. Pilih `Body > raw > JSON` dan isi data yang dibutuhkan seperti contoh di bawah ini:
+    ```json
+    {
+        "title": "Indonesia Merdeka",
+        "content": "Bandung Lautan API, ayo rebut kembali",
+        "categories": "[8,2,1,3]",
+        "tags": "[4,2]"
+    }
+    ```
+    jika berhasil, maka akan mendapatkan response seperti di bawah ini:
+    ```json
+    {
+        "message": "post updated"
+    }
+    ```
+- **Delete Posting** untuk menghapus posting berdasarkan id-nya. Kunjungi alamat `localhost:8000/posts/6` untuk menghapus kategori dengan id `6` dengan method `DELETE`. Jika berhasil, maka akan mendapatkan response seperti di bawah ini:
+    ```json
+    {
+        "message": "post deleted"
+    }
+    ```
+- **View Blog Post** untuk melihat posting dengan blog view. Kunjungi `http://localhost:8000` pada browser untuk melihatnya.
+### Shipping
+- **Login** diperlukan sebelum bisa mengakses API Shipping. Silakan gunakan data dummy users yang sudah digenerate sebelumnya maupun yang sudah dibuat sendiri. Data dummy user bisa digunakan untuk login dengan menggunakan akun email manapun yang terdaftar di sistem. **Mulai dari sini, Akan menggunakan API RAJA ONGKIR**. Jadi, pastikan sudah menjalankan instruksi mengenai RAJA_ONGKIR
+Sementara itu, untuk password seluruh data dummy adalah `password`.
+- **Get Province** untuk menayangkan seluruh data provinsi . Kunjungi alamat `localhost:8000/shipping/province` dengan method `GET`
+- **Get City** untuk menayangkan seluruh data Kota berdasarkan provinsi dengan **id=1** . Kunjungi alamat `localhost:8000/shipping/city/1` dengan method `GET`
+- **Get Costs** untuk mendapatkan data shipping cost. Contohnya ingin memperoleh shipping cost dengan pengiriman dari `city_id: 17` ke `city_id:32` dengan nilai berat `10`, maka kunjungi alamat `localhost:8000/shipping/costs` dengan method `GET`, pilih `Body > raw > JSON` lalu isi dengan json di bawah ini:
+```json
+{
+    "origin": 17,
+    "destination": 32,
+    "weight": 10
+}
+```
