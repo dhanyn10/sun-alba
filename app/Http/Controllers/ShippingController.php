@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
 use App\Helpers\RajaOngkir;
 
@@ -9,16 +10,28 @@ class ShippingController extends Controller
 {
     public function dataProvinsi()
     {
-        $provinsi = RajaOngkir::getApi('https://api.rajaongkir.com/starter/province?key='.env('RAJA_ONGKIR'));
-        if($provinsi != null)
+        $provinsiRedis = json_decode(Redis::get('provinsi'));
+        // dd($provinsiRedis);
+        if($provinsiRedis == null)
         {
-            return response()->json($provinsi->results);
+            $provinsi = RajaOngkir::getApi('https://api.rajaongkir.com/starter/province?key='.env('RAJA_ONGKIR'));
+            if($provinsi != null)
+            {
+                //masukkan data json provinsi dalam redis
+                // auto expired dalam 1 menit
+                Redis::set('provinsi', json_encode($provinsi->results), 'EX', 60);
+                return response()->json($provinsi->results);
+            }
+            else
+            {
+                return response()->json([
+                    'message' => "limit reached"
+                ], 405);
+            }
         }
         else
         {
-            return response()->json([
-                'message' => "limit reached"
-            ], 405);
+            return response()->json($provinsiRedis);
         }
     }
 
@@ -27,16 +40,28 @@ class ShippingController extends Controller
         // ambil id sebagai id provinsi
         $provinsiId = $request->id;
 
-        $kota = RajaOngkir::getApi('https://api.rajaongkir.com/starter/city?key='.env('RAJA_ONGKIR').'&province='.$provinsiId);
-        if($kota != null)
+        $kotaRedis = json_decode(Redis::get('kota'));
+        if($kotaRedis == null)
         {
-            return response()->json($kota->results);
+            $kota = RajaOngkir::getApi('https://api.rajaongkir.com/starter/city?key='.env('RAJA_ONGKIR').'&province='.$provinsiId);
+            if($kota != null)
+            {
+
+                //masukkan data json kota dalam redis
+                // auto expired dalam 1 menit
+                Redis::set('kota', json_encode($kota->results), 'EX', 60);
+                return response()->json($kota->results);
+            }
+            else
+            {
+                return response()->json([
+                    'message' => "limit reached"
+                ], 405);
+            }
         }
         else
         {
-            return response()->json([
-                'message' => "limit reached"
-            ], 405);
+            return response()->json($kotaRedis);
         }
     }
 
